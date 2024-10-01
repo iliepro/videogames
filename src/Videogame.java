@@ -1,5 +1,7 @@
 import java.util.HashSet;
 import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Videogame {
     private String name;
@@ -7,12 +9,13 @@ public class Videogame {
     private int playersNumber;
     private float price;
     private String platforms;
-    private String setting; //ambientació
+    private String setting;
     private String recommendedAgePEGI;
     private String specificContentPEGI;
     private String requirements;
 
     private Set<User> usersWhoHaveConsulted;
+    private List<Review> reviews;
 
     public Set<User> getUsersWhoHaveConsulted() {
         return usersWhoHaveConsulted;
@@ -21,6 +24,7 @@ public class Videogame {
     public Videogame(String name) {
         this.name = name;
         usersWhoHaveConsulted = new HashSet<>();
+        reviews = new ArrayList<>();
     }
 
     public String getName() {
@@ -52,7 +56,7 @@ public class Videogame {
     }
 
     public void setPrice(float price) {
-        this.price =    price;
+        this.price = price;
     }
 
     public String getPlatforms() {
@@ -113,4 +117,17 @@ public class Videogame {
     public void addUsersWhoHaveConsulted(User user) {
         usersWhoHaveConsulted.add(user);
     }
+
+    public boolean addReview(User user, String comment, int score) {
+        if (score < 1 || score > 5) {
+            return false;
+        }
+        reviews.add(new Review(user, comment, score));
+        return true;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
 }
+
