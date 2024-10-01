@@ -1,7 +1,10 @@
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class VideogamesLibrary {
+
     private Set<Videogame> videogames;
 
     public VideogamesLibrary() {
@@ -25,6 +28,24 @@ public class VideogamesLibrary {
             }
         }
         return videogameFound;
+    }
+
+    public List<Videogame> searchByCategory(String category) {
+        return videogames.stream()
+                .filter(videogame -> videogame.getGenre().equalsIgnoreCase(category))
+                .collect(Collectors.toList());
+    }
+
+    public List<Videogame> searchByPlatform(String platform) {
+        return videogames.stream()
+                .filter(videogame -> videogame.getPlatforms().toLowerCase().contains(platform.toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Videogame> searchByPriceRange(float minPrice, float maxPrice) {
+        return videogames.stream()
+                .filter(videogame -> videogame.getPrice() >= minPrice && videogame.getPrice() <= maxPrice)
+                .collect(Collectors.toList());
     }
 
     private void createInitialVideogames() {
@@ -64,3 +85,4 @@ public class VideogamesLibrary {
         videogames.add(dummyVideogame);
     }
 }
+
